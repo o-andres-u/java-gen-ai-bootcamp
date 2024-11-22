@@ -1,0 +1,6 @@
+client:
+  openai:
+    key: {KEY}
+    endpoint: {ENDPOINT}
+    deployment:
+      name: {DEPLOYMENT}
