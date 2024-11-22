@@ -1,6 +1,6 @@
 client:
   openai:
     key: {KEY}
-    endpoint: {ENDPOINT}
+    endpoint: https://ai-proxy.lab.epam.com/
     deployment:
-      name: {DEPLOYMENT}
+      name: gpt-4-turbo
