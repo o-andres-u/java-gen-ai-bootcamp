@@ -5,7 +5,6 @@ import com.epam.training.gen.ai.plugins.ConversationSummaryPlugin;
 import com.epam.training.gen.ai.plugins.PromptFunctionConstants;
 import com.microsoft.semantickernel.Kernel;
 import com.microsoft.semantickernel.aiservices.openai.chatcompletion.OpenAIChatCompletion;
-import com.microsoft.semantickernel.orchestration.PromptExecutionSettings;
 import com.microsoft.semantickernel.plugin.KernelPlugin;
 import com.microsoft.semantickernel.plugin.KernelPluginFactory;
 import com.microsoft.semantickernel.services.chatcompletion.ChatCompletionService;
@@ -43,15 +42,6 @@ public class SemanticKernelConfiguration {
                 new ConversationSummaryPlugin(),
                 PromptFunctionConstants.CONVERSATION_SUMMARY_PLUGIN
         );
-    }
-
-    @Bean
-    public PromptExecutionSettings promptExecutionSettings(@Value("${client.prompt.max-tokens}") int maxTokens,
-                                                           @Value("${client.prompt.temperature}") double temperature) {
-        return PromptExecutionSettings.builder()
-                .withMaxTokens(maxTokens)
-                .withTemperature(temperature)
-                .build();
     }
 
     @Bean

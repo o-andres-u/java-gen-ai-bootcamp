@@ -4,6 +4,3 @@ client:
     endpoint: https://ai-proxy.lab.epam.com/
     deployment:
       name: ${AZURE_OPEN_AI_DEPLOYMENT_NAME}
-  prompt:
-    max-tokens: 1000
-    temperature: 0.5
