@@ -36,12 +36,6 @@ public class ConversationSummaryPlugin {
                 .build();
     }
 
-
-    /// <summary>
-    /// Given a long conversation transcript, summarize the conversation.
-    /// </summary>
-    /// @param input A long conversation transcript.
-    /// @param kernel The <see cref="Kernel"/> containing services, plugins, and other state for use throughout the operation.
     @DefineKernelFunction(description = "Given a long conversation transcript, summarize the conversation.", name = PromptFunctionConstants.SUMMARIZE_CONVERSATION, returnType = "java.lang.String")
     public Mono<String> summarizeConversationAsync(
             @KernelFunctionParameter(description = "A long conversation transcript.", name = "input") String input,
