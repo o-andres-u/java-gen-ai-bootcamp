@@ -1,7 +1,6 @@
 package com.epam.training.gen.ai.service;
 
 import com.epam.training.gen.ai.model.Prompt;
-import com.epam.training.gen.ai.plugins.GenAITrainingConstants;
 import com.microsoft.semantickernel.Kernel;
 import com.microsoft.semantickernel.orchestration.PromptExecutionSettings;
 import com.microsoft.semantickernel.orchestration.ToolCallBehavior;
@@ -36,14 +35,11 @@ public class SemanticKernelService {
         verifyModelSupport(prompt.model());
 
         var promptExecutionSettings = buildPromptExecutionSettings(prompt.model(), prompt.temperature(), prompt.maxTokens());
-        var summarizeConversationFunction = Objects.requireNonNull(kernel.getPlugin(GenAITrainingConstants.CONVERSATION_SUMMARY_PLUGIN_NAME))
-                .get(GenAITrainingConstants.SUMMARIZE_CONVERSATION_FUNCTION_NAME);
-
         var response = kernel.invokeAsync(getKernelFunction())
                 .withPromptExecutionSettings(promptExecutionSettings)
                 .withArguments(createFunctionArguments(prompt.input()))
                 .withToolCallBehavior(
-                        ToolCallBehavior.allowOnlyKernelFunctions(true, summarizeConversationFunction)
+                        ToolCallBehavior.allowOnlyKernelFunctions(false)
                    )
                 .withResultType(String.class)
                 .block();
@@ -75,9 +71,8 @@ public class SemanticKernelService {
         return KernelFunction.createFromPrompt(
             """
                 <message role="system">You are a time traveler robot who comes from 2063. Your main goal is to find a person named Arus.</message>
-                <message role="system">Instructions: Respond to the user prompt if your sure that it is question.</message>
     
-                {{ConversationSummaryPlugin-SummarizeConversation history}}
+                {{ConversationSummaryPlugin-summarize_conversation history}}
     
                 <message role="user">{{request}}</message>
              """)
