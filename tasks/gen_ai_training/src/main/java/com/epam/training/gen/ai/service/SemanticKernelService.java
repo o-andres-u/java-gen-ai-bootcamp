@@ -1,7 +1,7 @@
 package com.epam.training.gen.ai.service;
 
 import com.epam.training.gen.ai.model.Prompt;
-import com.epam.training.gen.ai.plugins.PromptFunctionConstants;
+import com.epam.training.gen.ai.plugins.GenAITrainingConstants;
 import com.microsoft.semantickernel.Kernel;
 import com.microsoft.semantickernel.orchestration.PromptExecutionSettings;
 import com.microsoft.semantickernel.orchestration.ToolCallBehavior;
@@ -36,8 +36,8 @@ public class SemanticKernelService {
         verifyModelSupport(prompt.model());
 
         var promptExecutionSettings = buildPromptExecutionSettings(prompt.model(), prompt.temperature(), prompt.maxTokens());
-        var summarizeConversationFunction = Objects.requireNonNull(kernel.getPlugin(PromptFunctionConstants.CONVERSATION_SUMMARY_PLUGIN))
-                .get(PromptFunctionConstants.SUMMARIZE_CONVERSATION);
+        var summarizeConversationFunction = Objects.requireNonNull(kernel.getPlugin(GenAITrainingConstants.CONVERSATION_SUMMARY_PLUGIN_NAME))
+                .get(GenAITrainingConstants.SUMMARIZE_CONVERSATION_FUNCTION_NAME);
 
         var response = kernel.invokeAsync(getKernelFunction())
                 .withPromptExecutionSettings(promptExecutionSettings)

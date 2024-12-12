@@ -29,16 +29,20 @@ public class ConversationSummaryPlugin {
                 .build();
 
         this.summarizeConversationFunction = KernelFunction
-                .<String>createFromPrompt(PromptFunctionConstants.SummarizeConversationDefinition)
+                .<String>createFromPrompt(GenAITrainingConstants.SummarizeConversationDefinition)
                 .withDefaultExecutionSettings(conversationSummaryExecutionSettings)
-                .withName(PromptFunctionConstants.SUMMARIZE_CONVERSATION)
+                .withName(GenAITrainingConstants.SUMMARIZE_CONVERSATION_FUNCTION_NAME)
                 .withDescription("Given a section of a conversation transcript, summarize the part of the conversation.")
                 .build();
     }
 
-    @DefineKernelFunction(description = "Given a long conversation transcript, summarize the conversation.", name = PromptFunctionConstants.SUMMARIZE_CONVERSATION, returnType = "java.lang.String")
+    @DefineKernelFunction(
+            name = GenAITrainingConstants.SUMMARIZE_CONVERSATION_FUNCTION_NAME,
+            description = "Given a long conversation transcript, summarize the conversation.",
+            returnType = "java.lang.String"
+    )
     public Mono<String> summarizeConversationAsync(
-            @KernelFunctionParameter(description = "A long conversation transcript.", name = "input") String input,
+            @KernelFunctionParameter(name = "input", description = "A long conversation transcript.") String input,
             Kernel kernel) {
         return processAsync(this.summarizeConversationFunction, input, kernel);
     }
