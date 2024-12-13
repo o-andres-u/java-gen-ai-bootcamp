@@ -1,9 +1,6 @@
 client:
   openai:
-    key: { KEY }
+    key: ${AZURE_OPEN_AI_KEY}
     endpoint: https://ai-proxy.lab.epam.com/
     deployment:
-      name: gpt-4-turbo
-  prompt:
-    max-tokens: 1000
-    temperature: 0.5
+      name: ${AZURE_OPEN_AI_DEPLOYMENT_NAME}

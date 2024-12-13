@@ -1,3 +1,9 @@
 package com.epam.training.gen.ai.model;
 
-public record Prompt (String input) { }
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record Prompt (
+        String input,
+        String model,
+        double temperature,
+        @JsonProperty("max-tokens") int maxTokens) { }

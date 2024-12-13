@@ -16,7 +16,7 @@ public class ChatBotController {
 
     @PostMapping("chat-bot/prompt")
     public ChatBotResponse promptChatBot(@RequestBody Prompt request) {
-        var response = semanticKernelService.processPrompt(request.input());
+        var response = semanticKernelService.processPrompt(request);
         return new ChatBotResponse(response);
     }
 }
