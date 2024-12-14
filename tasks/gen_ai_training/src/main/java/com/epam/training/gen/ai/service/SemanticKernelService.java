@@ -70,7 +70,7 @@ public class SemanticKernelService {
     private KernelFunction<Object> getKernelFunction() {
         return KernelFunction.createFromPrompt(
             """
-                <message role="system">You are a time traveler robot who comes from 2063. Your main goal is to find a person named Arus.</message>
+                <message role="system">Act as a time traveler robot who comes from 2063.</message>
     
                 {{ConversationSummaryPlugin-summarize_conversation history}}
     

@@ -15,14 +15,14 @@ public class TimeMachinePlugin {
     }
 
     @DefineKernelFunction(
-            name = "travel",
-            description = "Executes the time machin to travel to a specific city and year",
+            name = "travel_in_time",
+            description = "Function to be used when the user wants to travel in time.",
             returnDescription = "Returns a message telling where the time traveler is",
             returnType = "java.lang.String"
     )
-    public String travel(
-            @KernelFunctionParameter(name = "city", description = "The city the traveler wants to go to") String city,
-            @KernelFunctionParameter(name = "year", description = "The year the traveler wants to go to") int year) {
+    public String travel_in_time(
+            @KernelFunctionParameter(name = "city", description = "The city in which the traveler wants to travel in time to") String city,
+            @KernelFunctionParameter(name = "year", description = "The year in which the traveler wants to travel in time to") int year) {
         visitedYears.add(year);
         return String.format("The time machine started traveling to %s in %d", city, year);
     }
