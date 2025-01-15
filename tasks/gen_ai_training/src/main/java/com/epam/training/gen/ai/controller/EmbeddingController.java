@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.ExecutionException;
+
 @RestController
 @AllArgsConstructor
 public class EmbeddingController {
@@ -21,9 +23,8 @@ public class EmbeddingController {
     }
 
     @PostMapping("embedding/store")
-    public void buildAndStoreFromText(@RequestBody EmbeddingRequest request) {
-        var response = embeddingService.build(request.text());
-        embeddingService.store(response);
+    public void buildAndStoreFromText(@RequestBody EmbeddingRequest request) throws ExecutionException, InterruptedException {
+        embeddingService.store(request.text());
     }
 
     @GetMapping("embedding/search")
