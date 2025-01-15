@@ -1,6 +1,6 @@
 package com.epam.training.gen.ai.plugins;
 
-public class PromptFunctionConstants {
+public class GenAITrainingConstants {
 
     public static final String SummarizeConversationDefinition = """
         BEGIN CONTENT TO SUMMARIZE:
@@ -16,6 +16,8 @@ public class PromptFunctionConstants {
         """
         .stripIndent();
 
-    public static final String SUMMARIZE_CONVERSATION = "SummarizeConversation";
-    public static final String CONVERSATION_SUMMARY_PLUGIN = "ConversationSummaryPlugin";
+    public static final String SUMMARIZE_CONVERSATION_FUNCTION_NAME = "summarize_conversation";
+    public static final String CONVERSATION_SUMMARY_PLUGIN_NAME = "ConversationSummaryPlugin";
+
+    public static final String TIME_MACHINE_PLUGIN_NAME = "TimeMachinePlugin";
 }
