@@ -4,6 +4,7 @@ import com.azure.ai.openai.OpenAIAsyncClient;
 import com.azure.ai.openai.models.EmbeddingItem;
 import com.azure.ai.openai.models.Embeddings;
 import com.azure.ai.openai.models.EmbeddingsOptions;
+import com.google.protobuf.AbstractMessage;
 import io.qdrant.client.QdrantClient;
 import io.qdrant.client.grpc.Collections;
 import io.qdrant.client.grpc.Points;
@@ -16,10 +17,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 import static io.qdrant.client.PointIdFactory.id;
 import static io.qdrant.client.ValueFactory.value;
 import static io.qdrant.client.VectorsFactory.vectors;
+import static io.qdrant.client.WithPayloadSelectorFactory.enable;
 
 @Service
 @Slf4j
@@ -102,7 +105,21 @@ public class EmbeddingService {
         log.info(result.getStatus().name());
     }
 
-    public String search(String text) {
-        return null;
+    public String search(String text) throws ExecutionException, InterruptedException {
+        var embeddings = retrieveEmbeddings(text);
+        var points = new ArrayList<Float>();
+        embeddings.block().getData().forEach(embeddingItem ->
+                points.addAll(embeddingItem.getEmbedding())
+        );
+        return qdrantClient.searchAsync(
+                Points.SearchPoints.newBuilder()
+                        .setCollectionName(COLLECTION_NAME)
+                        .addAllVector(points)
+                        .setWithPayload(enable(true))
+                        .setLimit(1)
+                        .build())
+                .get()
+                .stream().map(AbstractMessage::toString)
+                .collect(Collectors.joining());
     }
 }

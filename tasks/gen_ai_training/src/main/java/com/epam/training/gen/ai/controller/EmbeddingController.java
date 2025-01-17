@@ -28,7 +28,7 @@ public class EmbeddingController {
     }
 
     @GetMapping("embedding/search")
-    public String searchForClosest(@RequestParam String text) {
+    public String searchForClosest(@RequestParam String text) throws ExecutionException, InterruptedException {
         return embeddingService.search(text);
     }
 }
